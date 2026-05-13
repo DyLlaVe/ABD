@@ -1,0 +1,142 @@
+Ejercicio 1
+Dadas las siguientes estructuras de datos aplicar la Primera, Segunda y Tercera Forma Normal.
+a- Pasajero = @#Nro_Pasajero + Apellido + Nombre + #Cod_Pais_Nacimiento + Pais_Nacimiento + {Telefono} + Fecha_Nacimiento.
+
+1FN / 2FN
+
+Pasajero = @#Nro_Pasajero + Apellido + Nombre + #Cod_Pais_Nacimiento + Pais_Nacimiento + Fecha_Nacimiento.
+Pasajero_Telefono = @#Nro_Pasajero + @Telefono
+
+3FN
+
+Pasajero_Telefono = @#Nro_Pasajero + @Telefono
+Pasajero = @#Nro_Pasajero + Apellido + Nombre + #Cod_Pais_Nacimiento + Fecha_Nacimiento.
+Pais_Nacimiento = @#Cod_Pais_Nacimiento + Pais_Nacimiento
+
+
+
+Ejercicio 2
+b- Pedido de Fabricación = @#Nro_Pedido + #Nro_Proveedor + Razon_Social + Fecha + CUIT Proveedor + {#Código_Articulo + Descripción Artículo + #Cantidad} + #Cantidad Total Pedida de Artículos
+
+
+1FN
+
+Pedido de Fabricación = @#Nro_Pedido + #Nro_Proveedor + Razon_Social + Fecha + CUIT Proveedor + #Cantidad Total Pedida de Artículos
+Detalle_Pedidos = @#Nro_Pedido + @#Código_Articulo + Descripción Artículo + #Cantidad
+
+
+2FN
+
+Pedido de Fabricación = @#Nro_Pedido + #Nro_Proveedor + Razon_Social + Fecha + CUIT Proveedor + #Cantidad Total Pedida de Artículos
+Detalle_Pedidos = @#Nro_Pedido + @#Código_Articulo + #Cantidad
+Articulo = @#Código_Articulo + Descripción Artículo
+
+3FN
+
+Pedido de Fabricación = @#Nro_Pedido + #Nro_Proveedor + Fecha +  #Cantidad Total Pedida de Artículos
+Detalle_Pedidos = @#Nro_Pedido + @#Código_Articulo + #Cantidad
+Articulo = @#Código_Articulo + Descripción Artículo
+Proveedor = @#Nro_Proveedor + Razon Social + CUIT Proveedor
+
+atributo calculado
+Cantidad Total Pedida de Artículos = sum(cantidad)
+
+
+Estructura Normalizada
+
+Pedido de Fabricación = @#Nro_Pedido + #Nro_Proveedor + Fecha
+Detalle_Pedidos = @#Nro_Pedido + @#Código_Articulo + #Cantidad
+Articulo = @#Código_Articulo + Descripción Artículo
+Proveedor = @#Nro_Proveedor + Razon Social + CUIT Proveedor
+
+
+
+Ejercicio 3
+
+Caso A: si un solo cliente es el que hace la reserva:
+
+1FN / 2FN 
+
+Reserva Hotel = @#Reserva + Nombre_Hotel + Fecha_Ingreso + Fecha_Egreso + Apellido_Cliente + Nombre_Cliente + #DNI_Cliente + #Cantidad_Clientes
+
+3FN
+
+Reserva Hotel = @#Reserva + #DNI_Cliente + Nombre_Hotel + Fecha_Ingreso + Fecha_Egreso + #Cantidad_Clientes 
+Cliente = @#DNI_Cliente + Apellido_Cliente + Nombre_Cliente
+
+Conclusion: Cada reserva la hace un solo cliente aunque lleve a su familia, pero
+cada cliente puede hacer mas de una reserva.
+
+
+Caso B: una reserva puede tener multiples clientes:
+Reserva Hotel = @#Reserva + Nombre_Hotel + Fecha_Ingreso + Fecha_Egreso + {Apellido_Cliente + Nombre_Cliente + @#DNI_Cliente} + #Cantidad_Clientes
+
+
+1FN
+
+Reserva Hotel = @#Reserva + Nombre_Hotel + Fecha_Ingreso + Fecha_Egreso + Cantidad_Clientes
+Reserva_Cliente = @#Reserva + @#DNI_Cliente + Apellido_Cliente + Nombre_Cliente
+
+2FN / 3FN
+
+Reserva Hotel = @#Reserva + Nombre_Hotel + Fecha_Ingreso + Fecha_Egreso + Cantidad_Clientes
+Reserva_Cliente = @#Reserva + @#DNI_Cliente        
+Cliente = @#DNI_Cliente + Apellido_Cliente + Nombre_Cliente
+
+
+
+
+Ejercicio 4
+Presupuesto_Solicitado = @#Presupuesto + Fecha del dia + Fecha Caducidad Presupuesto + Razón Social + {@#Codigo Producto + Descripción Producto + #Precio Unitario + #Cantidad + #Precio x Cantidad} + #Precio Total.
+
+1FN
+
+Presupuesto_Solicitado = @#Presupuesto + Fecha del dia + Fecha Caducidad Presupuesto + Razón Social + #Precio Total.
+Presupuesto_Detalle = @#Presupuesto + @#Codigo Producto + Descripción Producto + #Precio Unitario + #Cantidad + #Precio x Cantidad
+
+2FN
+
+Presupuesto_Solicitado = @#Presupuesto + Fecha del dia + Fecha Caducidad Presupuesto + Razón Social + #Precio Total.
+Presupuesto_Detalle = @#Presupuesto + @#Codigo Producto + #Cantidad + #Precio x Cantidad
+Producto =  @#Codigo Producto + Descripción Producto + #Precio Unitario
+
+3FN
+
+Presupuesto_Solicitado = @#Presupuesto + Fecha del dia + Fecha Caducidad Presupuesto + Razón Social + #Precio Total.
+Presupuesto_Detalle = @#Presupuesto + @#Codigo Producto + #Cantidad + #Precio x Cantidad
+Producto =  @#Codigo Producto + Descripción Producto + #Precio Unitario
+
+Atributos calculados  
+#Precio x Cantidad =  #Precio Unitario * #Cantidad
+#Precio Total = sum(#Precio Unitario * #Cantidad)
+
+Estructura Normalizada
+
+Presupuesto_Solicitado = @#Presupuesto + Fecha del dia + Fecha Caducidad Presupuesto + Razón Social.
+Presupuesto_Detalle = @#Presupuesto + @#Codigo Producto + #Cantidad
+Producto =  @#Codigo Producto + Descripción Producto + #Precio Unitario
+
+
+
+
+Ejercicio 5
+Clinica_Medica = @#Clinica + Nombre_Clinica + Dirección_Clinica + Teléfono_Clinica + {@#Matricula_Medico + Apellido_Nombre_Medico + Fecha_Ingreso_a_la_Clinica + Codigo_Especialidad + Nombre_Especialidad}
+Nota: Especialidad, es la del médico (no la de la clinica).
+
+1FN
+
+Clinica_Medica = @#Clinica + Nombre_Clinica + Dirección_Clinica + Teléfono_Clinica
+Clinica_Medico = @#Clinica + @#Matricula_Medico + Apellido_Nombre_Medico + Fecha_Ingreso_a_la_Clinica + Codigo_Especialidad + Nombre_Especialidad
+
+2FN
+
+Clinica_Medica = @#Clinica + Nombre_Clinica + Dirección_Clinica + Teléfono_Clinica
+Clinica_Medico = @#Clinica + @#Matricula_Medico + Fecha_Ingreso_a_la_Clinica
+Medico = @#Matricula_Medico + Apellido_Nombre_Medico + Codigo_Especialidad + Nombre_Especialidad
+
+3FN
+
+Clinica_Medica = @#Clinica + Nombre_Clinica + Dirección_Clinica + Teléfono_Clinica
+Clinica_Medico = @#Clinica + @#Matricula_Medico + Fecha_Ingreso_a_la_Clinica
+Medico = @#Matricula_Medico + Apellido_Nombre_Medico + #Codigo_Especialidad
+Especialidad = @#Codigo_Especialidad + Nombre_Especialidad
