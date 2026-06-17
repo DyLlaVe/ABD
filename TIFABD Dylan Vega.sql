@@ -591,7 +591,7 @@ TO DISK = 'C:\SQLBackups\CoffeeHouse_Log1.trn'
 WITH FORMAT, INIT, NAME = 'CoffeeHouseDB - Backup de Log 1 (12:00 PM)';
 GO
 
--- 4.2 Ventas de la tarde
+-- Ventas de la tarde
 INSERT INTO dbo.OrdenesCompra (ClienteID, Producto, TotalFacturado, FechaVenta) 
 VALUES (2, 'Frappuccino Dulce de Leche', 3800.00, '2026-06-13 13:30:00');
 GO
